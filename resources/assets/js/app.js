@@ -6,11 +6,15 @@ import axios from 'axios';
 window.$ = window.jQuery = $;
 window.axios = axios;
 
-
 import router from './routes';
 import store from './store/index';
 import App from './components/App.vue';
 import jwtToken from './helpers/jwt-token';
+import ElementUI from 'element-ui'
+import locale from 'element-ui/lib/locale/lang/ja'
+import 'element-ui/lib/theme-chalk/index.css'
+
+Vue.use(ElementUI, { locale });
 
 axios.interceptors.request.use(config => {
     config.headers['X-CSRF-TOKEN'] = window.Laravel.csrfToken;
@@ -44,5 +48,5 @@ Vue.component('app', App);
 
 const app = new Vue({
     router,
-    store
+    store,
 }).$mount('#app');

@@ -7,48 +7,34 @@ Vue.use(VueRouter);
 import Store from './store/index'
 import Home from './components/home/Home.vue'
 import Login from './components/login/Login.vue'
+import MainWrapper from './components/main-wrapper/MainWrapper.vue'
+import Main from './components/main/Main.vue'
 import ProfileWrapper from './components/profile-wrapper/ProfileWrapper.vue'
 import Profile from './components/profile/Profile.vue'
 import EditProfile from './components/edit-profile/EditProfile.vue'
 import EditPassword from './components/edit-password/EditPassword.vue'
 
+import ElementUI from 'element-ui'
+import locale from 'element-ui/lib/locale/lang/ja'
+import 'element-ui/lib/theme-chalk/index.css'
+
+Vue.use(ElementUI, { locale });
+
 const router = new VueRouter({
     mode: 'history',
     routes: [
-        {
-            path: '/',
-            name: 'index',
-            component: Home,
-            meta: {}
-        },
-        {
-            path: '/login',
-            name: 'login',
-            component: Login,
-            meta: { requiresGuest: true }
-        },
-        {
-            path: '/profile',
-            component: ProfileWrapper,
+        { path: '/',                        name: 'index', component: Home, meta: {} },
+        { path: '/login',                   name: 'login', component: Login, meta: { requiresGuest: true } },
+        { path: '/main',    component: MainWrapper,
             children: [
-                {
-                    path: '',
-                    name: 'profile',
-                    component: Profile,
-                    meta: { requiresAuth: true }
-                },
-                {
-                    path: 'edit-profile',
-                    name: 'profile.editProfile',
-                    component: EditProfile,
-                    meta: { requiresAuth: true }
-                },
-                {
-                    path: 'edit-password',
-                    name: 'profile.editPassword',
-                    component: EditPassword,
-                    meta: { requiresAuth: true }
-                }
+                {path: '',                  name: 'main',                   component: Main,            meta: { requiresAuth: true } },
+            ]
+        },
+        { path: '/profile', component: ProfileWrapper,
+            children: [
+                { path: '',                 name: 'profile',                component: Profile,         meta: { requiresAuth: true } },
+                { path: 'edit-profile',     name: 'profile.editProfile',    component: EditProfile,     meta: { requiresAuth: true } },
+                { path: 'edit-password',    name: 'profile.editPassword',   component: EditPassword,    meta: { requiresAuth: true } }
             ]
         },
     ]

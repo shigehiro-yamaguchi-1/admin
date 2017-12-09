@@ -13,11 +13,14 @@
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <router-link :to="{name: 'index'}" tag="li" activeClass="active" exact>
+                    <router-link v-if="!user.authenticated" :to="{name: 'index'}" tag="li" activeClass="active" exact>
                         <a>Home</a>
                     </router-link>
                     <router-link v-if="!user.authenticated" :to="{name: 'login'}" tag="li" activeClass="active" exact>
                         <a>Login</a>
+                    </router-link>
+                    <router-link v-if="user.authenticated" :to="{name: 'main'}" tag="li" activeClass="active">
+                        <a>Main</a>
                     </router-link>
                     <router-link v-if="user.authenticated" :to="{name: 'profile'}" tag="li" activeClass="active">
                         <a>Profile</a>
